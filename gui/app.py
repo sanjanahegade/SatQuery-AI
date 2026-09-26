@@ -596,8 +596,8 @@ current_session = st.session_state.sessions[st.session_state.current_session_id]
 if "active_images" not in current_session:
     current_session["active_images"] = []
 
-# Optional query parameter for automated testing/demo: ?preload=sar or ?preload=optical
-if "preload" in st.query_params and not current_session.get("active_images"):
+# Optional query parameter for automated testing/demo: ?preload=sar, optical, puducherry_optical, puducherry_sar, etc.
+if "preload" in st.query_params:
     p_val = st.query_params.get("preload")
     if p_val == "sar":
         current_session["active_images"] = ["D:/satQai/data/real_test/sentinel1_mysuru_registered_vv.tif"]
@@ -605,6 +605,12 @@ if "preload" in st.query_params and not current_session.get("active_images"):
         current_session["active_images"] = ["D:/satQai/data/real_test/sentinel2_mysuru.tif"]
     elif p_val == "change":
         current_session["active_images"] = ["D:/satQai/data/real_test/sentinel2_mysuru_earlier.tif", "D:/satQai/data/real_test/sentinel2_mysuru.tif"]
+    elif p_val == "puducherry_optical":
+        current_session["active_images"] = ["D:/satQai/test_photo_satquery/sentinel2_puducherry.tif"]
+    elif p_val == "puducherry_sar":
+        current_session["active_images"] = ["D:/satQai/test_photo_satquery/sentinel1_puducherry_vv.tif"]
+    elif p_val in ["puducherry_pair", "fusion"]:
+        current_session["active_images"] = ["D:/satQai/test_photo_satquery/sentinel2_puducherry.tif", "D:/satQai/test_photo_satquery/sentinel1_puducherry_vv.tif"]
 
 
 # ==============================================================================
@@ -821,6 +827,12 @@ chat_input_placeholder = (
     else "Attach a satellite image above and ask any question..."
 )
 user_query = st.chat_input(chat_input_placeholder)
+if not user_query and "ask" in st.query_params:
+    user_query = st.query_params.get("ask")
+    try:
+        del st.query_params["ask"]
+    except Exception:
+        pass
 
 if user_query:
     active_imgs = list(current_session.get("active_images", []))

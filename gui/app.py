@@ -603,8 +603,12 @@ if "preload" in st.query_params:
         current_session["active_images"] = ["D:/satQai/data/real_test/sentinel1_mysuru_registered_vv.tif"]
     elif p_val == "optical":
         current_session["active_images"] = ["D:/satQai/data/real_test/sentinel2_mysuru.tif"]
-    elif p_val == "change":
+    elif p_val in ["change", "change_bengaluru"]:
+        current_session["active_images"] = ["D:/satQai/test_photo_satquery/sentinel2_bengaluru_pair_early.tif", "D:/satQai/test_photo_satquery/sentinel2_bengaluru_pair_late.tif"]
+    elif p_val == "change_mysuru":
         current_session["active_images"] = ["D:/satQai/data/real_test/sentinel2_mysuru_earlier.tif", "D:/satQai/data/real_test/sentinel2_mysuru.tif"]
+    elif p_val == "change_mandya_sar":
+        current_session["active_images"] = ["D:/satQai/test_photo_satquery/sentinel1_mandya_pair_early_vv.tif", "D:/satQai/test_photo_satquery/sentinel1_mandya_pair_late_vv.tif"]
     elif p_val == "puducherry_optical":
         current_session["active_images"] = ["D:/satQai/test_photo_satquery/sentinel2_puducherry.tif"]
     elif p_val == "puducherry_sar":

@@ -181,8 +181,12 @@ satQai/
 │   ├── change_vqa/
 │   │   ├── change_vqa.py          # Bi-temporal change detection engine
 │   │   └── change_vqa_cli.py      # Modality-aware Change-VQA CLI
-│   └── fusion/
+│   ├── fusion/
 │       └── fusion.py              # Cross-modal optical-SAR fusion pipeline
+│   └── scripts/
+│       ├── download_satellite_stac.py # Planetary Computer STAC retrieval utility
+│       ├── query_stac.py              # STAC catalog query & search utility
+│       └── validate_modality_detector.py # Sensor modality validation test suite
 ├── requirements-main.txt          # Main controller & GUI dependencies
 ├── .gitignore                     # Git tracking exclusions
 └── README.md                      # Project documentation

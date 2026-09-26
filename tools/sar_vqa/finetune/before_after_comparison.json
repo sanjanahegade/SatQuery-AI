@@ -1,0 +1,13 @@
+{
+  "status": "complete",
+  "model": "Qwen/Qwen2-VL-2B-Instruct",
+  "adapter_dir": "D:\\satQai\\tools\\sar_vqa\\finetune\\adapter",
+  "dataset_size": 90,
+  "epochs": 1,
+  "train_duration_s": 41.26,
+  "avg_loss": 2.4768,
+  "test_image": "D:\\satQai\\data\\real_test\\sentinel1_mysuru_registered_vv_preview.png",
+  "question": "What imaging modality is this, and what does the dark vs bright backscatter represent?",
+  "before_finetune_response": "This image appears to be a photograph of a starry night sky, likely taken with a camera or telescope. The dark areas represent the darkness of the night sky, while the bright spots represent stars. The dark vs bright backscatter in the image likely represents the contrast between the brightness of the stars and the darkness of the night sky.",
+  "after_finetune_response": "This is a simulated backscatter image from a simulated point source. The dark regions represent the backscattered light from the source, while the bright regions represent the unbackscattered light."
+}

@@ -1,0 +1,55 @@
+# Virtual environments
+venv/
+*/venv/
+.venv/
+*/.venv/
+
+# Model weights, cache and checkpoints
+models/
+*/models/
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.h5
+*.onnx
+
+# Satellite data and test imagery
+data/
+data/real_test/
+test_photo_satquery/
+*.tif
+*.tiff
+
+# Strict exclusion of all images and numerical arrays (zero images tracked)
+*.png
+*.jpg
+*.jpeg
+*.npy
+*.npz
+*.gif
+*.bmp
+*.webp
+
+# Outputs and logs
+outputs/
+logs/
+*.log
+
+# Caches and bytecode
+__pycache__/
+*/__pycache__/
+*.py[cod]
+*$py.class
+.cache/
+*/.cache/
+.pytest_cache/
+.streamlit/
+*.egg-info/
+dist/
+build/
+
+# OS specific files
+.DS_Store
+Thumbs.db
+desktop.ini

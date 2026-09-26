@@ -1,0 +1,145 @@
+# 📡 SAR-TEXT Dataset
+
+This is the official repository of the paper:
+
+> **SAR-TEXT: A Large-Scale SAR Image-Text Dataset Built with SAR-Narrator and A Progressive Learning Strategy for Downstream Tasks**（  https://arxiv.org/pdf/2507.18743  ）
+
+It includes:
+
+- 📁 A large-scale **SAR image–text paired dataset (SAR-TEXT)**
+- 🤖 Multiple **vision-language foundation models (VLFMs)** including:
+  - `SAR-CLIP` for retrieval
+  - `SAR-CoCa` for captioning
+  - `SAR-GPT` for generation
+- 🧠 An automatic captioning pipeline based on our **SAR-Narrator** framework( coming soon )
+
+The goal of this project is to bridge the gap between **synthetic aperture radar (SAR)** imagery and **semantic understanding** via vision-language modeling. Everything — code, models, and data — will be open-sourced to support the community.
+
+---
+
+## 🖼️ Project Overview
+
+<img width="910" height="805" alt="SAR-Narrator Overview" src="https://github.com/user-attachments/assets/5b240745-0a3e-4c3d-ac0d-c7c1034fea5a" />
+
+<img width="970" height="928" alt="SAR-CLIP Pipeline" src="https://github.com/user-attachments/assets/b6ac5cad-6c46-4613-97eb-2ea5637e5b8e" />
+
+---
+## 📂 Dataset Release
+
+The complete image and caption data for the **SAR-TEXT image-text matching dataset** is available via Baidu Netdisk:
+
+- 🖼️ **SAR Image–Text Matching Dataset (SAR-TEXT)**  
+  `SAR-TEXT-data.zip` (shared via Baidu NetDisk)  
+  🔗 [Download Link](https://pan.baidu.com/s/1cn3VZ0MIvvTaOkPAo_dBog?pwd=fw5a)  
+  🔑 Extraction Code: `fw5a`  
+ 
+
+
+
+This the **SAR image–text dialogue dataset** introduced in our paper. This release includes:
+
+- 🛰 **Optical Remote Sensing (RS) Dialogue Dataset(RS-VQA)**  
+  [`RS-VQA_conv.json`](https://github.com/YiguoHe/SAR-TEXT/blob/main/RS-VQA_conv.json)  
+  Based on the RS-VQA dataset, providing multi-turn visual question answering (VQA) dialogue annotations for optical remote sensing images.
+
+- 📡 **SAR Image–Text Dialogue Dataset (SAR-VQA)**  
+  `SAR-VQA_conv.json` (shared via Baidu NetDisk)  
+  🔗 [Download Link](https://pan.baidu.com/s/14mAP2t2SJ5NhYMQYkje1lg?pwd=1qqj)  
+  🔑 Extraction Code: `1qqj`  
+
+## 🤖 Pretrained Models Release
+
+- 🧠 **SAR-RS-CLIP**  
+  `SAR-RS-CLIP.pt` (shared via Baidu NetDisk)  
+  🔗 [Download Link](https://pan.baidu.com/s/1jbbAswSlHEi4j-2oAckiJQ?pwd=1472)  
+  🔑 Extraction Code: `1472`  
+
+
+- 🧠 **SAR-RS-CoCa**  
+  `SAR-RS-CoCa.pt` (shared via Baidu NetDisk)  
+  🔗 [Download Link](https://pan.baidu.com/s/1QqsCaQjBJWHGrWqQCIsMOQ?pwd=g4x3)  
+  🔑 Extraction Code: `g4x3`  
+
+
+- 🧠 **SAR-GPT**  
+  `SAR-GPT.pth` (shared via Baidu NetDisk)  
+  🔗 [Download Link](https://pan.baidu.com/s/1fEOdJ_cQTmjto4oH6YAPew?pwd=aqjy)  
+  🔑 Extraction Code: `aqjy`  
+
+
+## ⚙️ Environment and Codebase Notes
+
+This repository integrates multiple models from **different codebases**. Please make sure to follow the correct environment setup for each component:
+
+- ✅ **CLIP and CoCa** models are implemented using the [OpenCLIP](https://github.com/mlfoundations/open_clip) framework. All related model loading, training, and inference scripts are based on OpenCLIP.
+
+- ✅ **SAR-GPT** is based on the [TinyGPT-V](https://github.com/DLYuanGod/TinyGPT-V) repository. Any generation tasks involving SAR-GPT should be executed in the TinyGPT-V environment.
+
+Ensure dependencies are installed accordingly before running any module.
+
+---
+
+## 🔍 Image-Text Retrieval with SAR-CLIP
+
+The script [`SAR-CLIP-retrieval.py`](https://github.com/YiguoHe/SAR-TEXT/blob/main/SAR-CLIP-retrieval.py) evaluates **image-text retrieval** performance using SAR-CLIP, fine-tuned on SAR-Text.
+
+### 📦 Dataset
+
+- **CSV File**: [`HRSID_test_caption.csv`](https://github.com/YiguoHe/SAR-TEXT/blob/main/HRSID_test_caption.csv)  
+  Contains paths and corresponding captions.
+
+- **Images**:  
+  📦 Download from Baidu NetDisk:  
+  [HRSID_JPG.rar](https://pan.baidu.com/s/1nYPPLu5KhZbF96czWcArvg?pwd=i4xf)  
+  🔑 Extraction Code: `i4xf`
+
+### 🚀 Example Command
+
+```bash
+python evaluate_retrieval.py \
+  --model-name ViT-L-14 \
+  --retrieval-csv-path ./HRSID_test_caption.csv \
+  --sarclip-path ./checkpoints/sarclip_weights.pt \
+  --batch-size 64 \
+  --workers 8
+```
+
+### 📊 Output
+
+The script will print standard retrieval metrics:
+
+- `retrieval-image2text-R@1`, `@5`, `@10`
+- `retrieval-text2image-R@1`, `@5`, `@10`
+- `retrieval-mean-recall`
+
+---
+
+## 📝 Image Captioning with SAR-CoCa
+
+The script [`SAR-CoCa-generate-caption.py`](https://github.com/YiguoHe/SAR-TEXT/blob/main/SAR-CoCa-generate-caption.py) is used to generate **captions for SAR images** using the CoCa model.
+
+> ⚠️ Please ensure that this script is run in the **OpenCLIP environment**.
+
+### 🧭 How to Use
+
+1. Set the `folder_path` variable in the script to point to the directory containing your SAR images.
+
+2. Run the script. It will generate a CSV file named `SAR-CoCa-caption.csv`, containing:
+
+   - File path for each image
+   - Corresponding caption generated by the CoCa model
+
+### 📄 Output Example
+
+```csv
+filepath,caption
+./test_images/img001.jpg,A ship appears in open water.
+./test_images/img002.jpg,A satellite view of a bridge across a river.
+```
+
+
+## 📚 Acknowledgements
+
+- [OpenCLIP](https://github.com/mlfoundations/open_clip)
+- [TinyGPT-V](https://github.com/DLYuanGod/TinyGPT-V)
+- [SAR-TEXT (official repo)](https://github.com/YiguoHe/SAR-TEXT)

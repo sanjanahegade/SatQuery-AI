@@ -138,7 +138,7 @@ pip install -r tools/sar_vqa/requirements.txt
 ## How to Run
 
 ### Step 1: Launch the Optical Specialist Server (Port 8001)
-Keep GeoChat-7B warm in the background for fast sub-second inference:
+Keep GeoChat-7B warm in the background to avoid repeated model-loading overhead:
 ```bash
 tools\optical_vqa\venv\Scripts\python.exe tools\optical_vqa\server.py --port 8001
 ```
